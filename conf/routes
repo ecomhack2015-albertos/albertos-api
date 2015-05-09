@@ -6,7 +6,7 @@
 GET     /               @controllers.Static.status()
 GET     /status         @controllers.Static.status()
 
-GET     /products       @controllers.ProductsContoller.getProducts()
+GET     /products       @controllers.ProductsController.getProducts()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
