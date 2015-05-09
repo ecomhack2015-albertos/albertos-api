@@ -2,7 +2,7 @@ package common.macwire
 
 import com.softwaremill.macwire.{MacwireMacros, Wired}
 
-object Wirehelper {
+object WireHelper {
   import MacwireMacros._
   lazy val wired = wiredInModule(new WireDependencies {})
 
