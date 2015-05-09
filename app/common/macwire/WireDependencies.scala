@@ -14,10 +14,12 @@ trait WireDependencies {
 
   // Services
   lazy val foodsService = wire[FoodsService]
+  lazy val ordersService = wire[OrdersService]
 
   // Controllers
   lazy val staticController = wire[StaticController]
   lazy val foodsController = wire[FoodsController]
+  lazy val ordersController = wire[OrdersController]
 
   // Migrations
   lazy val productTypeMigration = wire[ProductTypeMigrations]
