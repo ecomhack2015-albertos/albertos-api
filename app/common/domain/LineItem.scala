@@ -1,8 +1,5 @@
 package common.domain
 
-/**
- * Created by peter on 5/9/15.
- */
-class LineItem {
+import common.models.Food
 
-}
+case class LineItem(food: Food, quantity: Int)
