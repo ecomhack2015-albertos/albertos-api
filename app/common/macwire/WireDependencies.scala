@@ -13,10 +13,10 @@ trait WireDependencies {
   val sphereClient = SphereClientFactory()
 
   // Services
-  lazy val productsService = wire[ProductsService]
+  lazy val foodsService = wire[FoodsService]
 
   // Controllers
-  lazy val productsController = wire[ProductsController]
+  lazy val foodsController = wire[FoodsController]
 
   // Migrations
   lazy val productTypeMigration = wire[ProductTypeMigrations]
