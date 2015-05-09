@@ -1,23 +1,24 @@
 package common.models
 
+import common.exceptions.ProductParseException
 import io.sphere.sdk.products.Product
 import play.api.libs.json.Json
 
-case class Food(id: String, Version: Long, name: String, price: Double)
+case class Food(id: String, version: Long, name: String, price: Double)
 
 object Food extends ModelUtils {
-  implicit val personFormat = Json.format[Food]
+  implicit val foodFormat = Json.format[Food]
 
   def fromProduct(product: Product): Option[Food] = {
     val variant = product.getMasterData.getStaged.getMasterVariant
 
     try {
-      Option(Food(
+      Some(Food(
         product.getId,
         product.getVersion,
         readStringAttribute(variant, "name"),
-        readDoubleAttribute(variant, "price")
+        readMoneyAttribute(variant, "price").getNumber.doubleValue()
       ))
-    } catch { case e: Exception => None } // Todo Try[Food]
+    } catch { case e: Exception => throw new ProductParseException(e.getMessage) } // Todo Try[Food]
   }
 }
