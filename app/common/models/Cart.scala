@@ -9,6 +9,7 @@ import scala.collection.JavaConverters._
 
 case class Cart(userId: String, lineItems: List[LineItem]) {
 
+  // Todo move to extension method SphereCart.fromCard
   def toSphereCart: Option[SphereCart] = {
     val cartBuilder = CartBuilder.of(new JDKCurrencyAdapter(Currency.getInstance("EUR")))
       .customerId(this.userId)
