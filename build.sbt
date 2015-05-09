@@ -11,6 +11,8 @@ libraryDependencies ++= Seq(
   anorm,
   cache,
   ws,
+  "com.softwaremill.macwire" %% "macros" % "0.7.3",
+  "com.softwaremill.macwire" %% "runtime" % "0.7.3",
   "io.sphere.sdk.jvm" % "sphere-models" % "1.0.0-M13",
   "io.sphere.sdk.jvm" %% "sphere-scala-client" % "1.0.0-M13"
 )
