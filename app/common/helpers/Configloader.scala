@@ -1,4 +1,4 @@
-package common.helper
+package common.helpers
 
 import play.api.Play
 

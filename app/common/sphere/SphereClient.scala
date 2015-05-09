@@ -1,6 +1,6 @@
 package common.sphere
 
-import common.helper.Configloader
+import common.helpers.Configloader
 import io.sphere.sdk.client._
 
 
