@@ -3,10 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /               @controllers.Static.status()
-GET     /status         @controllers.Static.status()
+GET     /               @controllers.StaticController.status()
+GET     /status         @controllers.StaticController.status()
 
-GET     /products       @controllers.ProductsController.getProducts()
+GET     /products       @controllers.FoodsController.getProducts()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
