@@ -1,13 +1,17 @@
 package controllers
 
-import common.domain.OrderDraft
+import common.domain.{LineItem, OrderDraft}
 import common.helpers.ControllerUtils
+import common.models.Food
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import scala.concurrent.ExecutionContext.Implicits.global
 import services.OrdersService
+import ControllerUtils.bindRequestJsonBody
+import common.helpers.ImplicitConversions.ExceptionToResultConverter
 
 import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
 class OrdersController(service: OrdersService) extends Controller {
 
@@ -19,20 +23,23 @@ class OrdersController(service: OrdersService) extends Controller {
   }
 
   def createOrder() = Action.async { implicit request =>
-    request.body.asJson match {
-      case Some(json) => json.asOpt[OrderDraft] match {
-        case Some(orderDraft) => service.createOrder(orderDraft) map {
-          case Some(order) => Created(Json.obj("order" -> Json.toJson(order)))
-          case _ => BadRequest(Json.obj("error" -> "Unknown error"))
-        }
-        case None => Future(BadRequest(Json.obj("error" -> "Cannot parse json")))
+    val orderDraftOption = bindRequestJsonBody(request.body)(Json.reads[OrderDraft])
+
+    orderDraftOption match {
+      case Success(orderDraft) => service.createOrder(orderDraft) map {
+        order => Created(Json.obj("order" -> Json.toJson(order)))
+      } recover {
+        case e: Exception => e.asResult
       }
-      case None => Future(BadRequest(Json.obj("error" -> "Missing body")))
+      case Failure(e) => Future(e.asResult)
     }
   }
 
   def updateOrder(id: String) = Action.async {
-    Future(Ok(id))
+    val food = Food("04e94ebc-acc3-464f-a7e6-1bab487f70bb", "Spaghetti Carbonara", 5)
+    val orderDraft = OrderDraft("bla_id", List( LineItem(food, 1) ))
+
+    Future(Ok(Json.obj("orderDraft" -> Json.toJson(orderDraft))))
   }
 
 }
