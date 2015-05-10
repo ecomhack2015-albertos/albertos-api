@@ -4,7 +4,7 @@ import common.exceptions.ProductParseException
 import io.sphere.sdk.products.Product
 import play.api.libs.json.Json
 
-case class Food(id: String, version: Long, name: String, price: Double)
+case class Food(id: String, name: String, price: Double)
 
 object Food extends ModelUtils {
   implicit val foodFormat = Json.format[Food]
@@ -15,7 +15,6 @@ object Food extends ModelUtils {
     try {
       Some(Food(
         product.getId,
-        product.getVersion,
         readStringAttribute(variant, "name"),
         readMoneyAttribute(variant, "price").getNumber.doubleValue()
       ))

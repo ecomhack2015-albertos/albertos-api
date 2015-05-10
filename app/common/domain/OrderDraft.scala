@@ -19,7 +19,3 @@ case class OrderDraft(userId: String, lineItems: List[LineItem]) {
     MoneyImpl.of(BigDecimal(total).bigDecimal, "EUR")
   }
 }
-
-object OrderDraft {
-
-}

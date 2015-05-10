@@ -1,18 +1,18 @@
 package services
 
-import common.helpers.ImplicitConversions
-import common.models.Cart
+import common.domain.OrderDraft
+import common.models.Order
 import common.sphere.SphereClient
-import io.sphere.sdk.carts.{Cart => SphereCart}
-import io.sphere.sdk.orders.commands.OrderFromCartCreateCommand
+import io.sphere.sdk.orders.commands.OrderImportCommand
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class OrdersService(sphereClient: SphereClient) {
 
 //  def getOrderById() = ???
 
-  def createOrder(cart: Cart) = {
-
-    val createCommand = OrderFromCartCreateCommand.of(SphereCart.fromCart(cart))
+  def createOrder(orderDraft: OrderDraft) = {
+    val orderImportCommand = OrderImportCommand.of(orderDraft.toImportDraft)
+    sphereClient.execute(orderImportCommand) map Order.fromSphereOrder
   }
 
 //  def updateOrderStatus() = ???
