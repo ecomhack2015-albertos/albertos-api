@@ -2,7 +2,8 @@ package controllers
 
 import common.domain.{LineItem, OrderDraft}
 import common.helpers.ControllerUtils
-import common.models.Food
+import common.models.Order
+import io.sphere.sdk.orders.{Order => SphereOrder}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -17,7 +18,7 @@ class OrdersController(service: OrdersService) extends Controller {
 
   def getOrderById(id: String) = Action.async {
     service.getOrderById(id) map {
-      case Some(order) => Ok(Json.toJson(order))
+      case Some(order) => Ok(Json.toJson(Order.fromSphereOrder(order)))
       case None => NotFound
     }
   }
@@ -35,11 +36,15 @@ class OrdersController(service: OrdersService) extends Controller {
     }
   }
 
-  def updateOrder(id: String) = Action.async {
-    val food = Food("04e94ebc-acc3-464f-a7e6-1bab487f70bb", "Spaghetti Carbonara", 5)
-    val orderDraft = OrderDraft("a29eda3c-5cc2-4afc-bd37-6d2723fc5551", List( LineItem(food, 2) ))
-
-    Future(Ok(Json.obj("orderDraft" -> Json.toJson(orderDraft))))
+  def updateOrderState(id: String) = Action.async {
+    service.getOrderById(id) flatMap {
+      case Some(sphereOrder) =>
+        service.updateOrderStatus(sphereOrder) map {
+          case Some(order) => Ok(Json.obj("order" -> Json.toJson(order)))
+          case None => BadRequest
+        }
+      case None => Future(NotFound)
+    }
   }
 
 }
