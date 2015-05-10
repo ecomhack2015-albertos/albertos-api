@@ -12,5 +12,7 @@ GET     /orders/:id     @controllers.OrdersController.getOrderById(id: String)
 POST    /orders         @controllers.OrdersController.createOrder()
 PUT     /orders/:id     @controllers.OrdersController.updateOrder(id: String)
 
+GET     /users/:mail    @controllers.UsersController.getUserByMail(mail: String)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
