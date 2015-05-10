@@ -4,6 +4,7 @@ import javax.money.MonetaryAmount
 
 import io.sphere.sdk.orders.{OrderState, OrderImportDraftBuilder}
 import io.sphere.sdk.utils.MoneyImpl
+import play.api.libs.json.Json
 import scala.collection.JavaConverters._
 
 case class OrderDraft(userId: String, lineItems: List[LineItem]) {
@@ -18,4 +19,10 @@ case class OrderDraft(userId: String, lineItems: List[LineItem]) {
     val total = lineItems.map(l => l.total()).foldLeft(0.0)(_ + _)
     MoneyImpl.of(BigDecimal(total).bigDecimal, "EUR")
   }
+}
+
+object OrderDraft {
+
+  implicit def jsonFormat = Json.format[OrderDraft]
+
 }

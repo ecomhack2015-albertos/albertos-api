@@ -1,12 +1,14 @@
 package common.models
 
 import common.domain.LineItem
+import play.api.libs.json.Json
 import scala.collection.JavaConverters._
 import io.sphere.sdk.orders.{Order => SphereOrder}
 
 case class Order(userId: String, status: String, lineItems: List[LineItem])
 
 object Order {
+
   def fromSphereOrder(sphereOrder: SphereOrder): Option[Order] = {
     try {
       Some(Order(
@@ -16,4 +18,7 @@ object Order {
       ))
     } catch { case e: Exception => None }
   }
+
+  implicit def jsonFormat = Json.format[Order]
+
 }

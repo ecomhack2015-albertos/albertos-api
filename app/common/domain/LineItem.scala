@@ -8,6 +8,8 @@ import io.sphere.sdk.products.Price
 import java.util.Locale
 import javax.money.MonetaryCurrencies
 
+import play.api.libs.json.Json
+
 case class LineItem(food: Food, quantity: Int) {
 
   def toImportDraft: LineItemImportDraft = {
@@ -33,5 +35,7 @@ object LineItem {
       ))
     } catch { case e: Exception => None }
   }
+
+  implicit def jsonFormat = Json.format[LineItem]
 
 }
