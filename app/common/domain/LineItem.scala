@@ -16,12 +16,12 @@ case class LineItem(food: Food, quantity: Int) {
     LineItemImportDraftBuilder.of(
       ProductVariantImportDraftBuilder.of(food.id, 1).build(),
       quantity,
-      Price.of(new java.math.BigDecimal(total()), MonetaryCurrencies.getCurrency("EUR")),
+      Price.of(new java.math.BigDecimal(total), MonetaryCurrencies.getCurrency("EUR")),
       LocalizedStrings.of(Locale.GERMAN, food.name)
     ).build()
   }
 
-  def total() = quantity * food.price
+  val total = quantity * food.price
 
 }
 

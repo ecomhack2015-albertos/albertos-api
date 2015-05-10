@@ -1,9 +1,8 @@
 package controllers
 
-import common.domain.{LineItem, OrderDraft}
+import common.domain.OrderDraft
 import common.helpers.ControllerUtils
 import common.models.Order
-import io.sphere.sdk.orders.{Order => SphereOrder}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import scala.concurrent.ExecutionContext.Implicits.global

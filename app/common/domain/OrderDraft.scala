@@ -16,7 +16,7 @@ case class OrderDraft(userId: String, lineItems: List[LineItem]) {
   }
 
   def total(): MonetaryAmount = {
-    val total = lineItems.map(l => l.total()).foldLeft(0.0)(_ + _)
+    val total = lineItems.map(l => l.total).foldLeft(0.0)(_ + _)
     MoneyImpl.of(BigDecimal(total).bigDecimal, "EUR")
   }
 }
