@@ -3,8 +3,6 @@ package common.models
 import io.sphere.sdk.attributes.AttributeAccess
 import io.sphere.sdk.products.ProductVariant
 
-import scala.collection.JavaConverters._
-
 trait ModelUtils {
   def getAttribute(variant: ProductVariant, name: String) =
     variant.getAttribute(name).get()

@@ -1,9 +1,5 @@
 package common.helpers
 
-import java.util.Currency
-
-import org.javamoney.moneta.internal.JDKCurrencyAdapter
-
 object ImplicitConversions {
 
   implicit class OptionConverter[T](x: java.util.Optional[T]) {
