@@ -10,7 +10,7 @@ class UsersController(userService: UsersService) extends Controller {
 
   def getUserByMail(mail: String) = Action.async {
     userService.getUserByEmail(mail).map {
-      case Some(user) => Ok(Json.toJson(user))
+      case Some(user) => Ok(Json.obj("user" -> Json.toJson(user)))
       case None => NotFound
     }
   }
