@@ -37,7 +37,7 @@ class OrdersController(service: OrdersService) extends Controller {
 
   def updateOrder(id: String) = Action.async {
     val food = Food("04e94ebc-acc3-464f-a7e6-1bab487f70bb", "Spaghetti Carbonara", 5)
-    val orderDraft = OrderDraft("bla_id", List( LineItem(food, 1) ))
+    val orderDraft = OrderDraft("a29eda3c-5cc2-4afc-bd37-6d2723fc5551", List( LineItem(food, 2) ))
 
     Future(Ok(Json.obj("orderDraft" -> Json.toJson(orderDraft))))
   }

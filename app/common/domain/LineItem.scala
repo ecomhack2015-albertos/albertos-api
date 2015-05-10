@@ -17,7 +17,7 @@ case class LineItem(food: Food, quantity: Int) {
       ProductVariantImportDraftBuilder.of(food.id, 1).build(),
       quantity,
       Price.of(new java.math.BigDecimal(total()), MonetaryCurrencies.getCurrency("EUR")),
-      LocalizedStrings.of(Locale.US, food.name)
+      LocalizedStrings.of(Locale.GERMAN, food.name)
     ).build()
   }
 
@@ -30,7 +30,7 @@ object LineItem {
   def fromSphereLineItem(s : SphereLineItem): Option[LineItem] = {
     try {
       Some(LineItem(
-        Food(s.getId, s.getName.get(Locale.US).get, s.getPrice.getValue.getNumber.doubleValue()),
+        Food(s.getId, s.getName.get(Locale.GERMAN).get, s.getPrice.getValue.getNumber.doubleValue()),
         s.getQuantity.toInt
       ))
     } catch { case e: Exception => None }
