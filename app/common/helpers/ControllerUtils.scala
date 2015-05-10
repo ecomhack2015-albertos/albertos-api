@@ -6,6 +6,7 @@ import play.api.mvc.AnyContent
 import scala.util.Try
 
 object ControllerUtils {
+
   def bindRequestJsonBody[T](body: AnyContent)(implicit tjs: Reads[T]): Try[T] = {
     Try {
       body.asJson match {
@@ -18,4 +19,5 @@ object ControllerUtils {
       }
     }
   }
+
 }
