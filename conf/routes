@@ -8,6 +8,8 @@ GET     /status         @controllers.StaticController.status()
 
 GET     /products       @controllers.FoodsController.getProducts()
 
+GET     /orders/:id     @controllers.OrdersController.getOrderById(id: String)
+POST    /orders         @controllers.OrdersController.createOrder()
 PUT     /orders/:id     @controllers.OrdersController.updateOrder(id: String)
 
 # Map static resources from the /public folder to the /assets URL path
